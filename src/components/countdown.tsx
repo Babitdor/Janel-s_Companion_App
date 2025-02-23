@@ -89,7 +89,7 @@ const CountDown: React.FC = () => {
 
       <div className="flex items-center mb-4">
         <h2 className="text-2xl font-extrabold text-gray-800 uppercase tracking-wide  inline-block">
-        🗓 Time Until Exams
+          🗓 Time Until Exams
         </h2>
       </div>
 
@@ -127,12 +127,12 @@ const CountDown: React.FC = () => {
             {Object.entries(timeLeft).map(([unit, value]) => (
               <div
                 key={unit}
-                className="text-center border-2 border-gray-800 bg-white-900 rounded-lg p-3"
+                className="flex flex-col items-center justify-center border-2 border-gray-800 bg-white rounded-lg p-3"
               >
-                <div className="text-3xl font-bold text-neon-green drop-shadow-glow">
+                <div className="text-2xl font-bold text-neon-green drop-shadow-glow">
                   {value}
                 </div>
-                <div className="text-gray-400 uppercase">{unit}</div>
+                <div className="text-gray-400 text-sm">{unit}</div>
               </div>
             ))}
           </div>
