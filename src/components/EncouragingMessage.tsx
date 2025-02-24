@@ -7,7 +7,11 @@ interface EncouragingMessageProps {
   onClose?: () => void; // Optional callback to close the message
 }
 
-const EncouragingMessage: React.FC<EncouragingMessageProps> = ({ messages, isVisible, onClose }) => {
+const EncouragingMessage: React.FC<EncouragingMessageProps> = ({
+  messages,
+  isVisible,
+  onClose,
+}) => {
   const [currentMessage, setCurrentMessage] = useState<string>("");
 
   useEffect(() => {

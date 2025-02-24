@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 // import Header from "./components/title";
 import CountDown from "./components/countdown";
+import DigitalCarePackage from "./components/care_package";
+import Header from "./components/Header";
 
 function App() {
   const [studyTimer, setStudyTimer] = useState(25 * 60);
@@ -131,7 +133,7 @@ function App() {
       )}
 
       <div className="container mx-auto px-4 py-8">
-        {/* <Header /> */}
+        <Header />
         <CountDown />
         <StudyGoals />
         <div className="bg-yellow-200 rounded-xl shadow-lg p-6 mb-6 border-4 border-black outline outline-2 outline-black drop-shadow-[6px_6px_0px_rgba(0,0,0,1)]">
@@ -218,7 +220,7 @@ function App() {
         </div>
 
         <NotesApp />
-        {/* <DigitalCarePackage /> */}
+        <DigitalCarePackage />
 
         {showMessage && (
           <div className="fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 animate-fade-in-up">
