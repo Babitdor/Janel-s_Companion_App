@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { db, collection, getDocs } from "../firebase";
+import { useState, useEffect } from "react";
+import { db, collection } from "../firebase";
+import { doc, onSnapshot } from "firebase/firestore";
 import { Laugh, Heart, Sparkles, Headphones } from "lucide-react";
 import { motion } from "framer-motion";
 import { PlayList } from "../types";
 
-const studyPlaylists = [
-  {
-    title: "Lofi Beats",
-    url: "https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM",
-  },
-  {
-    title: "Classical Focus",
-    url: "https://open.spotify.com/playlist/1h2rhuFAcXRTXwE0uVNQn8",
-  },
-  {
-    title: "Nature Sounds",
-    url: "https://open.spotify.com/playlist/37i9dQZF1DX4PP3DA4J0N8",
-  },
-];
+// const studyPlaylists = [
+//   {
+//     title: "Lofi Beats",
+//     url: "https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM",
+//   },
+//   {
+//     title: "Classical Focus",
+//     url: "https://open.spotify.com/playlist/1h2rhuFAcXRTXwE0uVNQn8",
+//   },
+//   {
+//     title: "Nature Sounds",
+//     url: "https://open.spotify.com/playlist/37i9dQZF1DX4PP3DA4J0N8",
+//   },
+// ];
 
 const memes = [
   {
@@ -39,17 +40,20 @@ const DigitalCarePackage = () => {
   const [playlist, setPlayList] = useState<PlayList[]>([]);
 
   useEffect(() => {
-    const fetchPlaylist = async () => {
-      const playListCollection = collection(db, "playlist");
-      const playListSnapshot = await getDocs(playListCollection);
-      const playList = playListSnapshot.docs.map(
+    // Reference to the "playlist" collection
+    const playListCollection = collection(db, "playlist");
+
+    // Set up a real-time listener
+    const unsubscribe = onSnapshot(playListCollection, (snapshot: { docs: any[]; }) => {
+      const updatedPlaylist = snapshot.docs.map(
         (doc) => doc.data() as PlayList
       );
-      setPlayList(playList);
-    };
-    fetchPlaylist();
-  }, []);
+      setPlayList(updatedPlaylist);
+    });
 
+    // Cleanup function to unsubscribe when the component unmounts
+    return () => unsubscribe();
+  }, []);
   return (
     <motion.div
       className="bg-yellow-200 border-4 border-black rounded-lg shadow-xl p-8 text-white outline outline-1 outline-black drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]"
@@ -62,10 +66,22 @@ const DigitalCarePackage = () => {
       </h2>
 
       <div className="flex justify-center space-x-4 mb-6">
-        {[ 
-          { label: "Need a Laugh", tab: "laugh", icon: <Laugh className="text-blue-500"/> },
-          { label: "Need a Hug", tab: "hug", icon: <Heart className="text-red-500"/> },
-          { label: "Study Boost", tab: "boost", icon: <Sparkles className="text-yellow-500"/> }
+        {[
+          {
+            label: "Need a Laugh",
+            tab: "laugh",
+            icon: <Laugh className="text-blue-500" />,
+          },
+          {
+            label: "Need a Hug",
+            tab: "hug",
+            icon: <Heart className="text-red-500" />,
+          },
+          {
+            label: "Study Boost",
+            tab: "boost",
+            icon: <Sparkles className="text-yellow-500" />,
+          },
         ].map((item) => (
           <motion.button
             key={item.tab}
@@ -80,7 +96,7 @@ const DigitalCarePackage = () => {
             whileTap={{ scale: 0.9 }}
           >
             {item.icon}
-            <span className="hidden sm:block">{item.label}</span> 
+            <span className="hidden sm:block">{item.label}</span>
             {/* This hides the text on small screens */}
           </motion.button>
         ))}
