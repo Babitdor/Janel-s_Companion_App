@@ -63,9 +63,9 @@ const DigitalCarePackage = () => {
 
       <div className="flex justify-center space-x-4 mb-6">
         {[ 
-          { label: "Need a Laugh", tab: "laugh", icon: <Laugh /> },
-          { label: "Need a Hug", tab: "hug", icon: <Heart /> },
-          { label: "Study Boost", tab: "boost", icon: <Sparkles /> }
+          { label: "Need a Laugh", tab: "laugh", icon: <Laugh className="text-blue-500"/> },
+          { label: "Need a Hug", tab: "hug", icon: <Heart className="text-red-500"/> },
+          { label: "Study Boost", tab: "boost", icon: <Sparkles className="text-yellow-500"/> }
         ].map((item) => (
           <motion.button
             key={item.tab}
