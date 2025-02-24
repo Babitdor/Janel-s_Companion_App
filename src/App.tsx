@@ -12,6 +12,7 @@ import {
 import CountDown from "./components/countdown";
 import DigitalCarePackage from "./components/care_package";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   const [studyTimer, setStudyTimer] = useState(25 * 60);
@@ -221,6 +222,7 @@ function App() {
 
         <NotesApp />
         <DigitalCarePackage />
+        <Footer />
 
         {showMessage && (
           <div className="fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 animate-fade-in-up">
